@@ -8,7 +8,7 @@ import Footer from './pages/footer'
 import Header from './pages/header'
 import './css/homscreen.css'
 
-const socket = io('http://localhost:8797', { transport: ['websocket'] })
+const socket = io('https://server-forum.herokuapp.com/', { transport: ['websocket'] })
 
 export default function Main() {
     let location = useLocation()

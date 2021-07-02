@@ -3,7 +3,7 @@ import axios from "axios";
 
 let instantAxios = axios.create({
     timeout: 20000,
-    baseURL: 'http://localhost:8797'
+    baseURL: 'https://server-forum.herokuapp.com'
 })
 
 instantAxios.interceptors.request.use((request) => {

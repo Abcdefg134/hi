@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router';
 import { addComment, deleteComment, getPostById, getUserById, likePost, unLikePost, updateCommentInPost } from './axios';
 import io from 'socket.io-client'
 
-const socket = io('http://localhost:8797', { transport: ['websocket'] })
+const socket = io('https://server-forum.herokuapp.com/', { transport: ['websocket'] })
 
 export default function PostPage() {
     const param = useParams()
