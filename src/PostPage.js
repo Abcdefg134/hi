@@ -81,11 +81,11 @@ export default function PostPage() {
             return null
         } else if (item.imgVideo?.split('.').pop() == 'png' || item.imgVideo?.split('.').pop() == 'jpg' || item.imgVideo?.split('.').pop() == 'jpeg') {
             return (
-                <img src={'https://server-forum.herokuapp.com/' + item.imgVideo} height="100px" width="100px" />
+                <img src={'https://forum-6eljkuccu-abcdefg134.vercel.app/' + item.imgVideo} height="100px" width="100px" />
             )
         } else {
             return (
-                <p>The forum doesn't support file preview yet.Please click <a href={'https://server-forum.herokuapp.com/' + post?.imgVideo}>here.</a>File name:  {post?.imgVideo?.split('uploads').pop()}</p>
+                <p>The forum doesn't support file preview yet.Please click <a href={'https://forum-6eljkuccu-abcdefg134.vercel.app/' + post?.imgVideo}>here.</a>File name:  {post?.imgVideo?.split('uploads').pop()}</p>
             )
         }
 
@@ -119,7 +119,7 @@ export default function PostPage() {
     const renderComment = (item, index) => {
         return (
             <div className="user-comment">
-                <p><img src={'https://server-forum.herokuapp.com/' + item.author?.avatar} height="50px" width="50px" /> {item.author?.name}</p>
+                <p><img src={'https://forum-6eljkuccu-abcdefg134.vercel.app/' + item.author?.avatar} height="50px" width="50px" /> {item.author?.name}</p>
                 <p>{item.content}{getUserReducer.User._id == item.author?._id ? (<><button onClick={() => { deleteCommentBtn(item) }}>Delete</button></>) : null}</p>
             </div>
         )
@@ -135,7 +135,7 @@ export default function PostPage() {
             <div>
                 <div id="user-pro">
                     <div>{post?.author?.name}</div>
-                    <p> <img src={'https://server-forum.herokuapp.com/' + post?.author?.avatar} height="100px" width="100px" />  </p>
+                    <p> <img src={'https://forum-6eljkuccu-abcdefg134.vercel.app/' + post?.author?.avatar} height="100px" width="100px" />  </p>
                 </div>
                 <div id="infor-post">
                     <p>Title: {post?.title}</p>

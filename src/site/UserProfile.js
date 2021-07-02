@@ -168,7 +168,7 @@ export default function UserProfile() {
                         <div class="main-container">
                             <div class="wrapper">
                                 <div class="left">
-                            <img src={'https://server-forum.herokuapp.com/' + currentUser?.avatar}
+                            <img src={'https://forum-6eljkuccu-abcdefg134.vercel.app/' + currentUser?.avatar}
                                         alt="user" width="100"/>
                                         <h4>{currentUser?.name}</h4>
                                         <p>UI Developer</p>

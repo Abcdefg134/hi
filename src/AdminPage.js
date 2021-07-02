@@ -55,7 +55,7 @@ export default function AdminPage() {
                 <Link to={'/userprofile/' + item._id}>
                     <label>{index + 1}</label>
                     <h3>{item.name} </h3>
-                    <img src={item.avatar ? 'https://server-forum.herokuapp.com/' + item.avatar : null} height="30px" width="30px"></img>
+                    <img src={item.avatar ? 'https://forum-6eljkuccu-abcdefg134.vercel.app/' + item.avatar : null} height="30px" width="30px"></img>
                     <h3>Post: {item.userPost ? item.userPost.length : 0}</h3>
                 </Link>
                 <button onClick={() => { deleteUserBtn(item, index) }}>Delete</button>

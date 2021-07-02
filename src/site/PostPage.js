@@ -159,7 +159,7 @@ export default function PostPage() {
             return null
         } else if (item.imgVideo?.split('.').pop() == 'png' || item.imgVideo?.split('.').pop() == 'jpg' || item.imgVideo?.split('.').pop() == 'jpeg'){
             return (
-                <img src={'https://server-forum.herokuapp.com/' + item.imgVideo} height="200px" width="200px" />
+                <img src={'https://forum-6eljkuccu-abcdefg134.vercel.app/' + item.imgVideo} height="200px" width="200px" />
             )
         }
     }
@@ -171,7 +171,7 @@ export default function PostPage() {
                 <div class="authors">
                     <div class="username-comment"><a href="#">{item.author?.name}</a></div>
                     <div>{item.author.role === 'user' ? "Member" : "Admin"}</div>
-                    <img src={'https://server-forum.herokuapp.com/' + item.author?.avatar} alt="user avatar" />
+                    <img src={'https://forum-6eljkuccu-abcdefg134.vercel.app/' + item.author?.avatar} alt="user avatar" />
                     <div>Posts: <u>{item.author?.userPost.length}</u></div>
                     <br />
                     <hr />
@@ -268,7 +268,7 @@ export default function PostPage() {
                                 <div class="username"><a href="#">{post?.author?.name}</a></div>
                         
                                 <div>{post.author?.role == 'user' ? "Member" : "Admin"}</div>
-                                <img src={'https://server-forum.herokuapp.com/' + post?.author?.avatar} alt="user avatar" />
+                                <img src={'https://forum-6eljkuccu-abcdefg134.vercel.app/' + post?.author?.avatar} alt="user avatar" />
                                 <div>Posts: <u>{post?.author?.userPost.length}</u></div>
                                
                                 <br />

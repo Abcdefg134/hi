@@ -53,7 +53,7 @@ export default function AdminPage() {
                 <div class="authors">
                     <div class="username"><a href="#">{item.name}</a></div>
                     <div>{item.role === 'admin'?"Admin":"Member"}</div>
-                    <img src={'https://server-forum.herokuapp.com/' + item.avatar} height="100px" width="100px" />
+                    <img src={'https://forum-6eljkuccu-abcdefg134.vercel.app/' + item.avatar} height="100px" width="100px" />
                     <div>Posts: <u>{item.userPost.length}</u></div>
                     <br />
                     <hr />
