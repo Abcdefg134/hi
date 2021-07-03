@@ -6,6 +6,9 @@ import { deletePost, getAllPost, getSpace, newPOst, getPostBySpace, getPostByPag
 import io from 'socket.io-client'
 import Footer from './pages/footer'
 import Header from './pages/header'
+//Chỗ sửa
+import { storage } from './firebase'
+//
 import './css/homscreen.css'
 
 const socket = io('https://server-forum.herokuapp.com/', { transport: ['websocket'] })
@@ -25,7 +28,6 @@ export default function Main() {
     //const [author, setAuthor] = useState()
     const [space, setSpace] = useState([])
     const [spaceId, setSpaceId] = useState()
-    const [file, setFile] = useState()
     const [postDele, setPostDele] = useState('alo')
     const [term, setTerm] = useState()
     const [liked, setLiked] = useState()
@@ -38,6 +40,9 @@ export default function Main() {
     const [listPages, setListPages] = useState([])
     const [postTop, setPostTop] = useState({})
     const [checkShow, setCheckShow] = useState(false)
+    
+    //Thêm cái lưu url bỏ cái [file,setFile] đi
+    const [urlImg, setUrlImg] = useState('')
     useEffect(() => {
         socket.on("getPost", data => {
             console.log(data);
@@ -120,29 +125,30 @@ export default function Main() {
         socket.emit('deletePost', id)
 
     }
+  
+  //submit mới
+            const submitBtn = async () => {
+                let body = {
+                    'title': title,
+                    'imgVideo': urlImg,
+                    'described': described,
+                    'like': '',
+                    'comment': '',
+                    'space': spaceId,
+                    'author': getUserReducer.User._id
+                }
+                await newPOst(body).then((res) => {
+                    console.log('hola');
+                    setTitle('')
+                   setDescribed('')
+                     setCheckShow(false)
+                })
+                      socket.emit('newPost', {
+                        body
+        })
+            }
 
-    //console.log(socket);
-    const submitBtn = async () => {
-        let data = new FormData()
-        data.append('title', title)
-        if (file) {
-            data.append('imgVideo', file, file.name)
-        }
-        data.append('described', described)
-        data.append('like', '')
-        data.append('comment', '')
-        data.append('space', spaceId)
-        data.append('author', getUserReducer.User._id)
-        await newPOst(data).then((res) => {
-            console.log('hola');
-            setTitle('')
-            setDescribed('')
-            setCheckShow(false)
-        })
-        socket.emit('newPost', {
-            data
-        })
-    }
+
     const handleChangeTitle = (event) => {
         setTitle(event.target.value)
     }
@@ -185,15 +191,28 @@ export default function Main() {
         }
     }
 
-
+  //Lấy link url của ảnh và setUrlImg
     const handleChangeFile = (event) => {
 
         //const  getSize = 
         if (event.target.files[0].size > 40000000) {
             alert('Max size is 40mb')
-            setFile('')
+
         } else {
-            setFile(event.target.files[0])
+            let file = event.target.files[0]
+            const uploadTask = storage.ref(`images/${file.name}`).put(file)
+            uploadTask.on(
+                "state_changed",
+                snapshot => { },
+                error => {
+                    console.log(error);
+                },
+                () => {
+                    storage.ref("images").child(file.name).getDownloadURL().then(url => {
+                        setUrlImg(url)
+                    })
+                }
+            )
         }
     }
 
