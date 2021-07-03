@@ -194,7 +194,6 @@ export default function Main() {
 
   //Lấy link url của ảnh và setUrlImg
     const handleChangeFile = (event) => {
-
         //const  getSize = 
         if (event.target.files[0].size > 40000000) {
             alert('Max size is 40mb')
@@ -211,6 +210,7 @@ export default function Main() {
                 () => {
                     storage.ref("images").child(file.name).getDownloadURL().then(url => {
                         setUrlImg(url)
+                        console.log(url);
                     })
                 }
             )
