@@ -379,7 +379,8 @@ export default function Main() {
                         <input type='file' onChange={handleChangeFile} />
                             </div>
                         <div>
-                                 <progress value={process} max="100"/>
+                            <h3>Up: </h3>
+                                 <progress value={process}style="width: 300px; height: 50px;" max="100"/>
                             </div>
 
                             <div class="post-submit">
