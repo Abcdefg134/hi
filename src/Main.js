@@ -132,7 +132,7 @@ export default function Main() {
                 let imgVideo = await urlImg
                 let body = {
                     'title': title,
-                    'imgVideo': imgVideo
+                    'imgVideo': imgVideo,
                     'described': described,
                     'like': '',
                     'comment': '',
