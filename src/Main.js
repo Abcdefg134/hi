@@ -148,11 +148,10 @@ export default function Main() {
                         body
         })
             }
-        
-            console.log("check log");
 
+    console.log(title)
     const handleChangeTitle = (event) => {
-        console.log("Xử lý title");
+        
         setTitle(event.target.value)
     }
     const handleChangeDescribed = (event) => {
