@@ -42,7 +42,7 @@ export default function Main() {
     const [checkShow, setCheckShow] = useState(false)
    
     
-    //Thêm cái lưu url bỏ cái [file,setFile] đi
+    //Thêm cái lưu url bỏ cái [file,setFile]
     const [urlImg, setUrlImg] = useState('')
     useEffect(() => {
         socket.on("getPost", data => {
