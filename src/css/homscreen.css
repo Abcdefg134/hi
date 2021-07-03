@@ -47,6 +47,11 @@ header.left {
     width: 100%
 }
 
+.processImg {
+    width: 400px;
+    height: 50px;
+}
+
 .logo{
     width: 130px;
 }
