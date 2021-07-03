@@ -151,6 +151,7 @@ export default function Main() {
 
 
     const handleChangeTitle = (event) => {
+        console.log("Xử lý title");
         setTitle(event.target.value)
     }
     const handleChangeDescribed = (event) => {
