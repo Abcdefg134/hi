@@ -47,7 +47,7 @@ export default function Main() {
     const [urlImg, setUrlImg] = useState('')
     useEffect(() => {
         socket.on("getPost", data => {
-            console.log(data);
+   
             setNewPost({
                 title: data.title,
                 imgVideo: data.imgVideo,
@@ -59,18 +59,18 @@ export default function Main() {
             })
         })
         socket.on('like', (id) => {
-            console.log(id);
+       
             setLiked(id)
         })
         socket.on('unLikePost', (id) => {
             setUnliked(id)
         })
         socket.on('delete', (id) => {
-            console.log(id);
+        
             setPostDele(id)
         })
         socket.on('addComment', data => {
-            console.log(data);
+           
             setNewComment(data)
         })
         socket.on('delComment', (id) => {
@@ -90,7 +90,7 @@ export default function Main() {
     }, [])
     useEffect(() => {
         getAllPost().then(res => {
-            console.log(res.data);
+            
             setPostData(res.data.data)
             setPages(res.data.pages)
             setCurrent(res.data.current)
@@ -104,7 +104,7 @@ export default function Main() {
     }, [newPost, postDele, liked, unLiked, newComment, delId])
     useEffect( async ()=> {
         await getPostTop().then(res => {
-            console.log(res.data[0]?.comment.length);
+           
             let a = {}
             a = res.data[0]
             for(let i = 1; i < res.data.length; i++){
@@ -118,7 +118,7 @@ export default function Main() {
 
     const deletePostBtn = async (item, index) => {
         let id = item._id
-        console.log(id);
+       
         await deletePost(item._id).then(res => {
             console.log("Da xoa");
             socket.emit('deletePost', id)
@@ -141,17 +141,18 @@ export default function Main() {
                     'author': getUserReducer.User._id
                 }
                 await newPOst(body).then((res) => {
-                    console.log('hola');
+                 
                     setTitle('')
                    setDescribed('')
                      setCheckShow(false)
+                    setProcess(0)
                 })
                       socket.emit('newPost', {
                         body
         })
             }
 
-    console.log(title)
+
     const handleChangeTitle = (event) => {
         
         setTitle(event.target.value)
@@ -165,9 +166,7 @@ export default function Main() {
     const goToAminPage = () => {
         history.push('/admin')
     }
-    // const handleChangeFile = (event) => {
-    //     setFile(event.target.files[0])
-    // }
+  
     const handleChangeTerm = (event) => {
         setTerm(event.target.value)
     }
@@ -176,7 +175,7 @@ export default function Main() {
     const searchPostByTitle = () => {
         if(term){
         searchByTitle(term).then(res => {
-            console.log(res.data);
+           
             setPostData(res.data.data)
             setPages('')
         })} else {
@@ -187,7 +186,7 @@ export default function Main() {
     const searchPostByAuthor = () => {
         if(term){
         searchByAuthor(term).then(res => {
-            console.log(res.data);
+          
             setPostData(res.data.data)
             setPages('')
         })} else {
@@ -202,7 +201,7 @@ export default function Main() {
             alert('Max size is 40mb')
 
         } else {
-            console.log("Ở đây có chạy");
+         
             let file = event.target.files[0]
             const uploadTask = storage.ref(`images/${file.name}`).put(file)
             uploadTask.on(
@@ -212,7 +211,7 @@ export default function Main() {
                         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                     );
                     setProcess(process)
-                    console.log(process);
+            
                 },
                 error => {
                     console.log(error);
@@ -292,7 +291,7 @@ export default function Main() {
             }
            
         })
-        console.log(listPages);
+       
     }
 
     const toPagesF = (name) => {
@@ -320,13 +319,7 @@ export default function Main() {
 
 
     }
-    //useEffect(()=>{
-      //  if(!term){
-        //    setResult(postData)
-        //}else{
-          //  setResult(postData.filter(searchPost))
-        //}
-    //},[term,postData])
+
 
     const showPost = () => {
         let a = checkShow ? false : true
@@ -335,6 +328,7 @@ export default function Main() {
     }
 
     const dismissPost = () => {
+        setProcess(0)
         setCheckShow(false)
     }
 
@@ -384,10 +378,10 @@ export default function Main() {
                             <div class="post-file">
                         <input type='file' onChange={handleChangeFile} />
                             </div>
-
+                            <progress value={process} max="100"/>
                             <div class="post-submit">
-                                <button  disabled={Number(process) == 100 ? false : true} onclick={submitBtn}>Submit</button>
-                                    <button class="post-dismiss" onclick={dismissPost}>Dismiss</button>
+                                <button onClick={submitBtn}>Submit</button>
+                                    <button class="post-dismiss" onClick={dismissPost}>Dismiss</button>
                 </div>
 
                             </div>
