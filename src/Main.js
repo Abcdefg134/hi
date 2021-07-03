@@ -378,7 +378,10 @@ export default function Main() {
                             <div class="post-file">
                         <input type='file' onChange={handleChangeFile} />
                             </div>
-                            <progress value={process} max="100"/>
+                        <div>
+                                 <progress value={process} max="100"/>
+                            </div>
+
                             <div class="post-submit">
                                 <button onClick={submitBtn}>Submit</button>
                                     <button class="post-dismiss" onClick={dismissPost}>Dismiss</button>
