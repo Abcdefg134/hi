@@ -163,7 +163,7 @@ export default function PostPage() {
             )
         }
     }
-
+    console.log(post?.imgVideo)
     const renderComment = (item, index) => {
         console.log(item);
         return (
