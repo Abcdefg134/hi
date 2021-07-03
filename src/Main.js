@@ -40,6 +40,7 @@ export default function Main() {
     const [listPages, setListPages] = useState([])
     const [postTop, setPostTop] = useState({})
     const [checkShow, setCheckShow] = useState(false)
+    const [process, setProcess] =useState(0)
    
     
     //Thêm cái lưu url bỏ cái [file,setFile]
@@ -206,7 +207,13 @@ export default function Main() {
             const uploadTask = storage.ref(`images/${file.name}`).put(file)
             uploadTask.on(
                 "state_changed",
-                snapshot => { },
+                snapshot => {
+                    const process = Math.round(
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                    );
+                    setProcess(process)
+                    console.log(process);
+                },
                 error => {
                     console.log(error);
                 },
@@ -379,7 +386,7 @@ export default function Main() {
                             </div>
 
                             <div class="post-submit">
-                        <input type="button" name="" id="" value="submit" onClick={submitBtn}/>
+                        <input type="button" name="" id="" disabled={Number(process) == 100 ? false : true} value="Submit" onClick={submitBtn}/>
                                     <button class="post-dismiss" onclick={dismissPost}>Dismiss</button>
                 </div>
 
