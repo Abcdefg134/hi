@@ -40,14 +40,14 @@ export default function Main() {
     const [listPages, setListPages] = useState([])
     const [postTop, setPostTop] = useState({})
     const [checkShow, setCheckShow] = useState(false)
-    const [process, setProcess] =useState(0)
-   
-    
+    const [process, setProcess] = useState(0)
+
+
     //Thêm cái lưu url bỏ cái [file,setFile]
     const [urlImg, setUrlImg] = useState('')
     useEffect(() => {
         socket.on("getPost", data => {
-   
+
             setNewPost({
                 title: data.title,
                 imgVideo: data.imgVideo,
@@ -59,18 +59,18 @@ export default function Main() {
             })
         })
         socket.on('like', (id) => {
-       
+
             setLiked(id)
         })
         socket.on('unLikePost', (id) => {
             setUnliked(id)
         })
         socket.on('delete', (id) => {
-        
+
             setPostDele(id)
         })
         socket.on('addComment', data => {
-           
+
             setNewComment(data)
         })
         socket.on('delComment', (id) => {
@@ -90,35 +90,35 @@ export default function Main() {
     }, [])
     useEffect(() => {
         getAllPost().then(res => {
-            
+
             setPostData(res.data.data)
             setPages(res.data.pages)
             setCurrent(res.data.current)
             let arrPages = []
-            for(let i = 1; i <= 3 && i <= res.data.pages;i++){
+            for (let i = 1; i <= 3 && i <= res.data.pages; i++) {
                 arrPages.push(i)
             }
             setListPages(arrPages)
 
         })
     }, [newPost, postDele, liked, unLiked, newComment, delId])
-    useEffect( async ()=> {
+    useEffect(async () => {
         await getPostTop().then(res => {
-           
+
             let a = {}
             a = res.data[0]
-            for(let i = 1; i < res.data.length; i++){
-                if(a.comment.length < res.data[i].comment.length){
+            for (let i = 1; i < res.data.length; i++) {
+                if (a.comment.length < res.data[i].comment.length) {
                     a = res.data[i]
                 }
             }
             setPostTop(a)
         })
-    },[])
+    }, [])
 
     const deletePostBtn = async (item, index) => {
         let id = item._id
-       
+
         await deletePost(item._id).then(res => {
             console.log("Da xoa");
             socket.emit('deletePost', id)
@@ -127,34 +127,34 @@ export default function Main() {
         socket.emit('deletePost', id)
 
     }
-  
-  //submit mới
-            const submitBtn = async () => {
-               
-                let body = {
-                    'title': title,
-                    'imgVideo':urlImg ,
-                    'described': described,
-                    'like': '',
-                    'comment': '',
-                    'space': spaceId,
-                    'author': getUserReducer.User._id
-                }
-                await newPOst(body).then((res) => {
-                 
-                    setTitle('')
-                   setDescribed('')
-                     setCheckShow(false)
-                    setProcess(0)
-                })
-                      socket.emit('newPost', {
-                        body
+
+    //submit mới
+    const submitBtn = async () => {
+
+        let body = {
+            'title': title,
+            'imgVideo': urlImg,
+            'described': described,
+            'like': '',
+            'comment': '',
+            'space': spaceId,
+            'author': getUserReducer.User._id
+        }
+        await newPOst(body).then((res) => {
+
+            setTitle('')
+            setDescribed('')
+            setCheckShow(false)
+            setProcess(0)
         })
-            }
+        socket.emit('newPost', {
+            body
+        })
+    }
 
 
     const handleChangeTitle = (event) => {
-        
+
         setTitle(event.target.value)
     }
     const handleChangeDescribed = (event) => {
@@ -166,42 +166,44 @@ export default function Main() {
     const goToAminPage = () => {
         history.push('/admin')
     }
-  
+
     const handleChangeTerm = (event) => {
         setTerm(event.target.value)
     }
 
 
     const searchPostByTitle = () => {
-        if(term){
-        searchByTitle(term).then(res => {
-           
-            setPostData(res.data.data)
-            setPages('')
-        })} else {
+        if (term) {
+            searchByTitle(term).then(res => {
+
+                setPostData(res.data.data)
+                setPages('')
+            })
+        } else {
             window.location.reload()
         }
     }
 
     const searchPostByAuthor = () => {
-        if(term){
-        searchByAuthor(term).then(res => {
-          
-            setPostData(res.data.data)
-            setPages('')
-        })} else {
+        if (term) {
+            searchByAuthor(term).then(res => {
+
+                setPostData(res.data.data)
+                setPages('')
+            })
+        } else {
             window.location.reload()
         }
     }
 
-  //Lấy link url của ảnh và setUrlImg
+    //Lấy link url của ảnh và setUrlImg
     const handleChangeFile = (event) => {
         //const  getSize = 
         if (event.target.files[0].size > 40000000) {
             alert('Max size is 40mb')
 
         } else {
-         
+
             let file = event.target.files[0]
             const uploadTask = storage.ref(`images/${file.name}`).put(file)
             uploadTask.on(
@@ -211,7 +213,7 @@ export default function Main() {
                         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                     );
                     setProcess(process)
-            
+
                 },
                 error => {
                     console.log(error);
@@ -228,14 +230,14 @@ export default function Main() {
 
     const renderSpace = (item, index) => {
         return (
-            <a href={"/main/spaces/"+item._id}>
-              {item.name}
+            <a href={"/main/spaces/" + item._id}>
+                {item.name}
             </a>
         )
     }
 
     const handleChangeSearchValue = (e) => {
-        if (e.target.value == "everything"){
+        if (e.target.value == "everything") {
             setSearchValue('')
         }
         setSearchValue(e.target.value)
@@ -262,7 +264,7 @@ export default function Main() {
 
                 <div class="subforum-info subforum-column">
                     <b><a href="">Last Post</a></b> by <a href="">{item.comment?.length != 0 ? item.comment[0]?.author?.name : item.author?.name} </a>
-                  
+
                     on
                     <small >
                         <p style={{ marginTop: "10px" }}>
@@ -280,7 +282,7 @@ export default function Main() {
         getPostByPage(name).then(res => {
             setPostData(res.data.data)
             setCurrent(res.data.current)
-            if(Number(name) == listPages[2] && Number(name) != res.data.pages){
+            if (Number(name) == listPages[2] && Number(name) != res.data.pages) {
                 let i = Number(name)
                 let max = i + 2
                 let arrPages = []
@@ -289,9 +291,9 @@ export default function Main() {
                 }
                 setListPages(arrPages)
             }
-           
+
         })
-       
+
     }
 
     const toPagesF = (name) => {
@@ -313,9 +315,9 @@ export default function Main() {
     const renderPage = (item, index) => {
 
         return (
-            <div class={current == item ? "pagination:number isPages" : "pagination:number"} onClick={()=>{toPages(item)}}>
-                    {item}
-                </div>)
+            <div class={current == item ? "pagination:number isPages" : "pagination:number"} onClick={() => { toPages(item) }}>
+                {item}
+            </div>)
 
 
     }
@@ -334,7 +336,7 @@ export default function Main() {
 
     return (
         <div class="container">
-           <Header />
+            <Header />
 
             <div class="search-box">
                 <div>
@@ -343,7 +345,7 @@ export default function Main() {
                         <option value="titles" >Titles</option>
                         <option value="author" >Author</option>
                     </select>
-                    <input type="text" name="" id="" class={searchValue == 'everything'?"offSearch":""} placeholder="Search ..." onChange={handleChangeTerm} />
+                    <input type="text" name="" id="" class={searchValue == 'everything' ? "offSearch" : ""} placeholder="Search ..." onChange={handleChangeTerm} />
                     <button onClick={searchValue == 'titles' ? searchPostByTitle : searchPostByAuthor}><i class="fa fa-search"></i></button>
                 </div>
             </div>
@@ -352,44 +354,42 @@ export default function Main() {
             <div class="post-button">
                 <button onClick={showPost}>Post something</button>
             </div>
-            
-            <div class={checkShow ? "post-area b-block": 'b-none'} id="post-area">
+
+            <div class={checkShow ? "post-area b-block" : 'b-none'} id="post-area">
                 <div class="post-wrapper">
                     <div class="post-title">
                         <h3>Title:</h3>
-                        <input type="text" onChange={handleChangeTitle} placeholder="Title ..."/>
-                </div>
+                        <input type="text" onChange={handleChangeTitle} placeholder="Title ..." />
+                    </div>
 
-                        <div class="post-description">
-                            <h3>Description:</h3>
-                        <input type="text" onChange={handleChangeDescribed} placeholder="Description ..."/>
-                </div>
+                    <div class="post-description">
+                        <h3>Description:</h3>
+                        <input type="text" onChange={handleChangeDescribed} placeholder="Description ..." />
+                    </div>
 
-                            <div class="post-space">
-                                <h3>Space:</h3>
+                    <div class="post-space">
+                        <h3>Space:</h3>
                         <select value={spaceId} onChange={handleChangeSpaceId} id="">
-                                    <option value="everything">Everything</option>
+                            <option value="everything">Everything</option>
                             {space?.map((item, index) => {
                                 return <option key={index} value={item._id}>{item.name}</option>
                             })}
-                                </select>
-                            </div>
+                        </select>
+                    </div>
 
-                            <div class="post-file">
+                    <div class="post-file">
                         <input type='file' onChange={handleChangeFile} />
-                            </div>
-                        <div>
-                            <h3>Up: </h3>
-                                 <progress value={process}style="width: 300px; height: 50px;" max="100"/>
-                            </div>
+                    </div>
+                    <div>
+                        <label>Loading</label>
+                        <progress value={process} max="100"  />{process}%</div>
+                    <div class="post-submit">
+                        <button onClick={submitBtn}>Submit</button>
+                        <button class="post-dismiss" onClick={dismissPost}>Dismiss</button>
+                    </div>
 
-                            <div class="post-submit">
-                                <button onClick={submitBtn}>Submit</button>
-                                    <button class="post-dismiss" onClick={dismissPost}>Dismiss</button>
                 </div>
-
-                            </div>
-                        </div>
+            </div>
             <main>
                 <div class="main-container">
                     <div class="list-container">
@@ -413,7 +413,7 @@ export default function Main() {
                                 </div>
 
                                 <div class="subforum-description subforum-column">
-                                    <h1><a href="#"><Link to={'/post/'+postTop?._id}>{postTop?.title}</Link></a></h1>
+                                    <h1><a href="#"><Link to={'/post/' + postTop?._id}>{postTop?.title}</Link></a></h1>
                                     <h2>Description content:</h2>
                                     <p>{postTop?.described}</p>
                                 </div>
@@ -428,7 +428,7 @@ export default function Main() {
                                     on
                                     <small >
                                         <p style={{ marginTop: "10px" }}>
-                                            {postTop?.comment? new Date(postTop?.comment[0]?.created).toDateString() : new Date(postTop?.created).toDateString()}
+                                            {postTop?.comment ? new Date(postTop?.comment[0]?.created).toDateString() : new Date(postTop?.created).toDateString()}
                                         </p>
                                         {postTop?.comment ? new Date(postTop?.comment[0]?.created).toLocaleTimeString() : new Date(postTop?.created).toLocaleTimeString()}
                                         <br />
@@ -444,39 +444,39 @@ export default function Main() {
                             <div class="subforum-title">
                                 <h1>General Information</h1>
                             </div>
-                            
-                            
+
+
                             <hr class="subforum-devider" />
                             {postData?.map(renderPost)}
                         </div>
 
 
-                    
-                            <div class={Number(pages) > 0 ? "pagination:container" : "disableOff"}>
+
+                        <div class={Number(pages) > 0 ? "pagination:container" : "disableOff"}>
                             <div class={current != 1 && current > 2 ? "pagination:number arrow" : "pagination:number arrow disableOff"} onClick={() => { toPagesF(Number(current) - 1) }}>
-                                    <svg width="18" height="18">
-                                        <use href="#left" />
-                                    </svg>
-                                     <span class="arrow:text">First</span>
+                                <svg width="18" height="18">
+                                    <use href="#left" />
+                                </svg>
+                                <span class="arrow:text">First</span>
 
-                                </div>
-                                <div class={current > 2 ? "pagination:number" : "pagination:number disableOff"}>
-                                    ...
-                                </div>
-                                {listPages.map(renderPage)}
-                                <div class={current < pages - 2 ? "pagination:number" : "pagination:number disableOff"}>
-                                    ...
-                                </div>
-                            <div class={current != pages && pages > 3 ? "pagination:number arrow" : "pagination:number arrow disableOff"} onClick={() => { toPages(Number(current) + 1) }} >
-                                    <span class="arrow:text">Last</span>
-                                    <svg width="18" height="18">
-                                        <use href="#right" />
-                                    </svg>
-                                </div>
                             </div>
+                            <div class={current > 2 ? "pagination:number" : "pagination:number disableOff"}>
+                                ...
+                            </div>
+                            {listPages.map(renderPage)}
+                            <div class={current < pages - 2 ? "pagination:number" : "pagination:number disableOff"}>
+                                ...
+                            </div>
+                            <div class={current != pages && pages > 3 ? "pagination:number arrow" : "pagination:number arrow disableOff"} onClick={() => { toPages(Number(current) + 1) }} >
+                                <span class="arrow:text">Last</span>
+                                <svg width="18" height="18">
+                                    <use href="#right" />
+                                </svg>
+                            </div>
+                        </div>
 
-                    
-                        
+
+
                         <svg class="hide">
                             <symbol id="left" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></symbol>
                             <symbol id="right" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></symbol>
@@ -489,7 +489,7 @@ export default function Main() {
                 </div>
             </main>
 
-        <Footer />
+            <Footer />
         </div>
 
 
