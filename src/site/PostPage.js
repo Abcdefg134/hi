@@ -280,7 +280,8 @@ export default function PostPage() {
                                 {post?.described}
                                 <br />
                                 <br /><br />
-                                {renderImg(post)}
+                                {/* {renderImg(post)} */}
+                                <img src={post?.imgVideo} height="200px" width="200px" />
                                 <br />
                                 <hr />
                                 Created {new Date(post.created).toDateString()} at {new Date(post.created).toLocaleTimeString()} By {post.author?.name}

@@ -40,6 +40,7 @@ export default function Main() {
     const [listPages, setListPages] = useState([])
     const [postTop, setPostTop] = useState({})
     const [checkShow, setCheckShow] = useState(false)
+    const [urlImg, setUrlImg] = useState('')
     
     //Thêm cái lưu url bỏ cái [file,setFile] đi
     const [urlImg, setUrlImg] = useState('')
