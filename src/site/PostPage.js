@@ -171,7 +171,7 @@ export default function PostPage() {
                 <div class="authors">
                     <div class="username-comment"><a href="#">{item.author?.name}</a></div>
                     <div>{item.author.role === 'user' ? "Member" : "Admin"}</div>
-                    <img src={'https://forum-6eljkuccu-abcdefg134.vercel.app/' + item.author?.avatar} alt="user avatar" />
+                    <img  src={post.imgVideo} />
                     <div>Posts: <u>{item.author?.userPost.length}</u></div>
                     <br />
                     <hr />
