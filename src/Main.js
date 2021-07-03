@@ -132,7 +132,7 @@ export default function Main() {
                
                 let body = await {
                     'title': title,
-                    'imgVideo': imgVideo,
+                    'imgVideo':urlImg ,
                     'described': described,
                     'like': '',
                     'comment': '',
