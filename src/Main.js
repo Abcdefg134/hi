@@ -130,7 +130,7 @@ export default function Main() {
   //submit mới
             const submitBtn = async () => {
                
-                let body = await {
+                let body = {
                     'title': title,
                     'imgVideo':urlImg ,
                     'described': described,
