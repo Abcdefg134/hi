@@ -8,6 +8,8 @@ export default function Header() {
         window.location.reload()
 
     }
+    const goToAdminPage = ()=>{
+    history.push('/admin')}
     
     return (
         <header>
@@ -18,7 +20,7 @@ export default function Header() {
                     <i class="fa fa-bars"></i>
                 </label>
                 <ul>
-                    <li><a href="./admin">Admin</a></li>
+                    <li><a onClick={goToAdminPage} >Admin</a></li>
                     <li><a href="/userprofile">Account</a></li>
                     <li><a href="#section@">Feedback</a></li>
                     <li><a onClick={logoutBtn}>Sign Out</a></li>
