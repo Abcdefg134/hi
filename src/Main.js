@@ -386,7 +386,7 @@ export default function Main() {
                             </div>
 
                             <div class="post-submit">
-                        <input type="button" name="" id="" disabled={Number(process) == 100 ? false : true} value="Submit" onClick={submitBtn}/>
+                                <button  disabled={Number(process) == 100 ? false : true} onclick={submitBtn}>Submit</button>
                                     <button class="post-dismiss" onclick={dismissPost}>Dismiss</button>
                 </div>
 
