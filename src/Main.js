@@ -129,9 +129,10 @@ export default function Main() {
   
   //submit mới
             const submitBtn = async () => {
+                let imgVideo = await urlImg
                 let body = {
                     'title': title,
-                    'imgVideo': urlImg,
+                    'imgVideo': imgVideo
                     'described': described,
                     'like': '',
                     'comment': '',
