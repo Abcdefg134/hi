@@ -380,7 +380,7 @@ export default function Main() {
                             </div>
                         <div>
                             <h3>Up: </h3>
-                                 <progress value={process}style="width: 300px; height: 50px;" max="100"/>
+                                 <progress value={process} class="processImg" max="100"/>
                             </div>
 
                             <div class="post-submit">
