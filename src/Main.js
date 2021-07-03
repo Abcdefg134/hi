@@ -199,6 +199,7 @@ export default function Main() {
             alert('Max size is 40mb')
 
         } else {
+            console.log("Ở đây có chạy");
             let file = event.target.files[0]
             const uploadTask = storage.ref(`images/${file.name}`).put(file)
             uploadTask.on(
