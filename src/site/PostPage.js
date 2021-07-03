@@ -159,7 +159,7 @@ export default function PostPage() {
             return null
         } else if (item.imgVideo?.split('.').pop() == 'png' || item.imgVideo?.split('.').pop() == 'jpg' || item.imgVideo?.split('.').pop() == 'jpeg'){
             return (
-                <img src={'https://forum-6eljkuccu-abcdefg134.vercel.app/' + item.imgVideo} height="200px" width="200px" />
+                <img src={item.imgVideo} height="200px" width="200px" />
             )
         }
     }
