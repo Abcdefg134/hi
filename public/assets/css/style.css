@@ -272,7 +272,7 @@ header .logo:hover {
 .slider .slick-prev:before {
     content: "";
     position: absolute;
-    background: url(./img/Right\ arrow.svg);
+    background: url(../images/RightArrow.svg);
     background-size: 20px;
     width: 20px;
     height: 20px;
@@ -282,7 +282,7 @@ header .logo:hover {
 }
 
 .slider .slick-prev:before {
-    background: url(./img/Left\ arrow.svg);
+    background: url(../images//LeftArrow.svg);
     background-size: 20px;
 }
 
@@ -352,19 +352,19 @@ header .logo:hover {
 }
 
 .wave-line .line1{
-    background: url(./img/Line1.svg) repeat-x;
+    background: url(../images/Line1.svg) repeat-x;
     background-size: contain;
     animation: lineOne 10s linear infinite;
 }
 
 .wave-line .line2{
-    background: url(./img/Line2.svg) repeat-x;
+    background: url(../images/Line2.svg) repeat-x;
     background-size: contain;
     animation: lineTwo 20s linear infinite;
 }
 
 .wave-line .line3{
-    background: url(./img/Line3.svg) repeat-x;
+    background: url(../images//Line3.svg) repeat-x;
     background-size: contain;
     animation: lineThree 50s linear infinite;
 }
