@@ -6,6 +6,7 @@ import { deletePost, getAllPost, getSpace, newPOst, getPostBySpace, getPostByPag
 import io from 'socket.io-client'
 import Footer from './pages/footer'
 import Header from './pages/header'
+import { AiFillCloseSquare } from "react-icons/ai";
 //Chỗ sửa
 import { storage } from './firebase'
 //
@@ -40,9 +41,9 @@ export default function Main() {
     const [listPages, setListPages] = useState([])
     const [postTop, setPostTop] = useState({})
     const [checkShow, setCheckShow] = useState(false)
-    const [process, setProcess] = useState(0)
+    const [process, setProcess] = useState(100)
 
-
+    
     //Thêm cái lưu url bỏ cái [file,setFile]
     const [urlImg, setUrlImg] = useState('')
     useEffect(() => {
@@ -201,9 +202,9 @@ export default function Main() {
         //const  getSize = 
         if (event.target.files[0].size > 40000000) {
             alert('Max size is 40mb')
-
+           
         } else {
-
+            
             let file = event.target.files[0]
             const uploadTask = storage.ref(`images/${file.name}`).put(file)
             uploadTask.on(
@@ -244,7 +245,11 @@ export default function Main() {
         console.log(searchValue);
     }
 
-
+    const removeInput = ()=>{
+        alert('Input file is empty')
+        setUrlImg('')
+        
+    }
     const renderPost = (item, index) => {
         return (
             <div class="subforum-row">
@@ -378,13 +383,14 @@ export default function Main() {
                     </div>
 
                     <div class="post-file">
-                        <input type='file' onChange={handleChangeFile} />
+                        <input type='file'  onChange={handleChangeFile} />
+                        {urlImg? <a onClick={removeInput}><AiFillCloseSquare /></a>:null}
                     </div>
-                    <div>
-                        <label>Loading</label>
-                        <progress value={process} max="100"  />{process}%</div>
+                    <div >
+                        <label hidden={process == 100? true:false}>Loading : {process}%</label>
+                        <progress hidden={process == 100? true:false} value={process} max="100"  /></div>
                     <div class="post-submit">
-                        <button onClick={submitBtn}>Submit</button>
+                        <button hidden={process == 100? false: true} onClick={submitBtn}>Submit</button>
                         <button class="post-dismiss" onClick={dismissPost}>Dismiss</button>
                     </div>
 
