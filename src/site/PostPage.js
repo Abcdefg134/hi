@@ -157,9 +157,9 @@ export default function PostPage() {
     const renderImg = (item) => {
         if(!item.imgVideo) {
             return null
-        } else if (item.imgVideo?.split('.').pop() == 'png' || item.imgVideo?.split('.').pop() == 'jpg' || item.imgVideo?.split('.').pop() == 'jpeg'){
+        } else if (item.imgVideo?.split('.').pop().split('?')[0] == 'png' || item.imgVideo?.split('.').pop().split('?')[0] == 'jpg' || item.imgVideo?.split('.').pop().split('?')[0] == 'jpeg'){
             return (
-                <img src={'https://forum-6eljkuccu-abcdefg134.vercel.app/' + item.imgVideo} height="200px" width="200px" />
+                <img src={post?.imgVideo} height="200px" width="200px" />
             )
         }
     }
@@ -280,8 +280,8 @@ export default function PostPage() {
                                 {post?.described}
                                 <br />
                                 <br /><br />
-                                {/* {renderImg(post)} */}
-                                <img src={post?.imgVideo} height="200px" width="200px" />
+                                {renderImg(post)}
+                                
                                 <br />
                                 <hr />
                                 Created {new Date(post.created).toDateString()} at {new Date(post.created).toLocaleTimeString()} By {post.author?.name}
