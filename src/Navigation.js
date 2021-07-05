@@ -35,7 +35,7 @@ export default function Navigation() {
     const loginSucess = (token) => {
         setToken(token)
         localStorage.setItem(keyStorage, token)
-        console.log(token);
+        
 
 
     }
@@ -47,7 +47,7 @@ export default function Navigation() {
     if (token) {
         var crurrentUser = jwtDecode(token);
         dispatch({ type: GET_USER, payload: crurrentUser })
-        console.log(crurrentUser.role);
+        
     }
 
     return (

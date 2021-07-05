@@ -27,7 +27,7 @@ export default function Login({ setToken }  ) {
                     password
                 }
                 const result = await login(body)
-                console.log(result);
+                
                 setBg("notify success")              
                 handleAlert("Đăng nhập thành công !")
                 setTimeout(() => {

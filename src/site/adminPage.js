@@ -14,7 +14,7 @@ export default function AdminPage() {
     useEffect(() => {
         getAllUser().then(res => {
             setAllUser(res.data)
-            console.log(res.data);
+            
         }).catch((err) => {
             alert(err)
         })
@@ -28,9 +28,9 @@ export default function AdminPage() {
 
     const deleteUserBtn = (item,index) => {
         let id = item._id
-        console.log(id);
+        
         deleteUser(id).then(res => {
-            console.log("Da xoa");
+           
         })
         let newList = allUser
         newList.splice(index, 1)
@@ -46,8 +46,7 @@ export default function AdminPage() {
                 countComment += item.userPost[i].comment.length
             }  
         }
-        console.log(countLike);
-        console.log(countComment);
+        
         return(
             <div class="body">
                 <div class="authors">

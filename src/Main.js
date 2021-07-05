@@ -121,7 +121,7 @@ export default function Main() {
         let id = item._id
 
         await deletePost(item._id).then(res => {
-            console.log("Da xoa");
+           
             socket.emit('deletePost', id)
 
         })
@@ -141,6 +141,7 @@ export default function Main() {
             'space': spaceId,
             'author': getUserReducer.User._id
         }
+        if(spaceId){
         await newPOst(body).then((res) => {
 
             setTitle('')
@@ -150,7 +151,7 @@ export default function Main() {
         })
         socket.emit('newPost', {
             body
-        })
+        })} else {alert("Bạn phải chọn space")}
     }
 
 
@@ -222,7 +223,7 @@ export default function Main() {
                 () => {
                     storage.ref("images").child(file.name).getDownloadURL().then(url => {
                         setUrlImg(url)
-                        console.log(url);
+                        
                     })
                 }
             )
@@ -242,7 +243,7 @@ export default function Main() {
             setSearchValue('')
         }
         setSearchValue(e.target.value)
-        console.log(searchValue);
+        
     }
 
     const removeInput = ()=>{
@@ -282,7 +283,7 @@ export default function Main() {
             </div>
         )
     }
-    //console.log(spaceId);
+    
     const toPages = (name) => {
         getPostByPage(name).then(res => {
             setPostData(res.data.data)
@@ -330,7 +331,7 @@ export default function Main() {
 
     const showPost = () => {
         let a = checkShow ? false : true
-        console.log(a);
+       
         setCheckShow(a)
     }
 
@@ -375,7 +376,7 @@ export default function Main() {
                     <div class="post-space">
                         <h3>Space:</h3>
                         <select value={spaceId} onChange={handleChangeSpaceId} id="">
-                            <option value="everything">Everything</option>
+                            <option value="">Everything</option>
                             {space?.map((item, index) => {
                                 return <option key={index} value={item._id}>{item.name}</option>
                             })}

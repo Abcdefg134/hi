@@ -30,12 +30,12 @@ export default function PostPage() {
     const [pages, setPages] = useState('')
     const [current, setCurrent] = useState('')
     const [listPages, setListPages] = useState([])
-    console.log(getUserReducer.User);
+    
     //Effect
     useEffect(() => {
         getUserById(getUserReducer.User._id).then(res => {
             setUser(res.data)
-            console.log(res.data);
+           
         })
     }, [])
 
@@ -44,7 +44,7 @@ export default function PostPage() {
         setIdLiked('')
         setNewComment('')
         setDelId('')
-        console.log('done');
+        
     }, [post])
 
     useEffect(() => {
@@ -61,7 +61,7 @@ export default function PostPage() {
             setDelId(id)
         })
         socket.on('delete', (id) => {
-            console.log(id);
+            
             setPostDele(id)
         })
     }, [])
@@ -77,12 +77,12 @@ export default function PostPage() {
         getPostById(params.id).then(res => {
             if (res.data.data.comment) {
                 setPost(res.data.data)
-                console.log(res.data.data);
+               
                 setPages(res.data.pages)
                 setCurrent(res.data.current)
                 let arrPages = []
                 for (let i = 1; i <= 3 && i <= res.data.pages; i++) {
-                    console.log(i);
+                    
                     arrPages.push(i)
                 }
                 setListPages(arrPages)
@@ -97,7 +97,7 @@ export default function PostPage() {
 
     const deletePostBtn = () => {
         let id = params.id
-        console.log(id);
+       
         socket.emit('deletePost', id)
         deletePost(id).then(res => {
             //alert('Xóa bài viết thành công')
@@ -108,7 +108,7 @@ export default function PostPage() {
     }
 
     const addCommentBtn = () => {
-        console.log(user._id)
+        
         let body = {
             content: comment,
             author: user._id
@@ -119,7 +119,7 @@ export default function PostPage() {
     }
 
     const checkLike = post?.like?.filter(item => item._id.includes(user._id)).length
-    console.log(checkLike);
+    
 
     const likeBtn = () => {
         let body = {
@@ -146,7 +146,7 @@ export default function PostPage() {
 
     const deleteCommentBtn = (item) => {
         deleteComment(item._id).then(() => {
-            console.log('xoa');
+           
         }).catch((err) => { if (err) alert(err) })
         socket.emit('delComment', item._id)
     }
@@ -161,11 +161,15 @@ export default function PostPage() {
             return (
                 <img src={post?.imgVideo} height="200px" width="200px" />
             )
+        } else {
+            return (
+                <p>The forum doesn't support file preview yet.Please click <a href={post?.imgVideo}>here.</a>To preview(with video or music) and dowload(with other file type). File type:{item.imgVideo?.split('.').pop().split('?')[0]}</p>
+            )
         }
     }
-    console.log(post?.imgVideo)
+    
     const renderComment = (item, index) => {
-        console.log(item);
+        
         return (
             <div class="body">
                 <div class="authors">
@@ -254,7 +258,7 @@ export default function PostPage() {
                     <div class="space"></div>
 
                     <div class="navigate">
-                        <span><a href="/main">TIE - Forums</a> &gt;&gt; <a href={post.space ? '/main/spaces/' + post.space[0]._id :''}>{post.space ? post.space[0].name : ""}</a> &gt;&gt; <a href="#">{post?.title}</a></span>
+                        <span><a href="/main">TIE - Forums</a> &gt;&gt; <a href={post.space ? '/main/spaces/' + post?.space[0]?._id :''}>{post?.space ? post?.space[0]?.name : ""}</a> &gt;&gt; <a href="#">{post?.title}</a></span>
                     </div>
 
                     <div class="topic-container">
